@@ -49,8 +49,9 @@ public class GoalSequence {
 
         goalsSequence.add(new GoalSet());
         goalsSequence.get(goalsSequence.size()-1).addGoal(size-2, size-2,pom,true);
-        goalsSequence.get(goalsSequence.size()-1).addGoal(size-1, size-2,pom+1,true);
         goalsSequence.get(goalsSequence.size()-1).addGoal(size-2, size-1,pom+size,true);
+        goalsSequence.add(new GoalSet());
+        goalsSequence.get(goalsSequence.size()-1).addGoal(size-1, size-2,pom+1,true);
 
         currentGoals = goalsSequence.get(goalsPosition);
     }

@@ -83,6 +83,8 @@ public class Algorithm {
             changeBlockedFields();
             if (goals.hasNext()) {
                 goals.next();
+            } else {
+                break;
             }
             moveSequences = new ArrayList<>();
             possibleMoves = getPossibleMoves(movesSoFar.get(movesSoFar.size() - 1), board);

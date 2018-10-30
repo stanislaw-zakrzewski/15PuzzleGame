@@ -1,11 +1,10 @@
-package algorithms;
+package algorithms.moveTracking;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MoveSequence {
     private List<Move> movesSoFar;
-    private Move lastMove;
     private int[][] board;
 
     public MoveSequence(Moves move, int[][] board) {

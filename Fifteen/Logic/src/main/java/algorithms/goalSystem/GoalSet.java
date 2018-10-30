@@ -1,4 +1,6 @@
-package algorithms;
+package algorithms.goalSystem;
+
+import algorithms.goalSystem.Goal;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package algorithms;
+package algorithms.goalSystem;
 
 public class Goal {
     private final int[] coordinates;

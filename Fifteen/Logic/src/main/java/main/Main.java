@@ -1,5 +1,6 @@
-package algorithms;
+package main;
 
+import algorithms.Algorithm;
 import mapGeneration.BoardGenerator;
 
 public class Main {

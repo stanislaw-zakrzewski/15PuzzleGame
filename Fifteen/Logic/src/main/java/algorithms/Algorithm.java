@@ -1,5 +1,11 @@
 package algorithms;
 
+import algorithms.goalSystem.Goal;
+import algorithms.goalSystem.GoalSequence;
+import algorithms.moveTracking.Move;
+import algorithms.moveTracking.MoveSequence;
+import algorithms.moveTracking.Moves;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

@@ -1,4 +1,4 @@
-package algorithms;
+package algorithms.moveTracking;
 
 public class Move {
     private final Moves move;

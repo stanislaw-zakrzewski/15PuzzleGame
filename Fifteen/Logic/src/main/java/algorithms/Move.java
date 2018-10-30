@@ -13,19 +13,27 @@ public class Move {
     }
 
     public void makeMove() {
-        int[] blankCoordinates = getCoordinates(16);
-        int[] toSwitchCoordinates = getCoordinates(16);
-        if (move.equals(Moves.Up)) toSwitchCoordinates[1] -= 1;
-        if (move.equals(Moves.Down)) toSwitchCoordinates[1] += 1;
-        if (move.equals(Moves.Left)) toSwitchCoordinates[0] -= 1;
-        if (move.equals(Moves.Right)) toSwitchCoordinates[0] += 1;
-        if(toSwitchCoordinates[1] > 3 || toSwitchCoordinates[0] > 3) {
+        int[] blankCoordinates = getCoordinates(size * size);
+        int[] toSwitchCoordinates = getCoordinates(size * size);
 
-        } else {
-            int valueToSwitch = board[toSwitchCoordinates[0]][toSwitchCoordinates[1]];
-            board[toSwitchCoordinates[0]][toSwitchCoordinates[1]] = 16;
-            board[blankCoordinates[0]][blankCoordinates[1]] = valueToSwitch;
+        switch (move) {
+            case Up:
+                toSwitchCoordinates[0] -= 1;
+                break;
+            case Down:
+                toSwitchCoordinates[0] += 1;
+                break;
+            case Left:
+                toSwitchCoordinates[1] -= 1;
+                break;
+            case Right:
+                toSwitchCoordinates[1] += 1;
+                break;
         }
+
+        int valueToSwitch = board[toSwitchCoordinates[0]][toSwitchCoordinates[1]];
+        board[toSwitchCoordinates[0]][toSwitchCoordinates[1]] = size * size;
+        board[blankCoordinates[0]][blankCoordinates[1]] = valueToSwitch;
     }
 
     private int[] getCoordinates(int number) {
@@ -48,10 +56,8 @@ public class Move {
     }
 
     private void setBoard(int[][] newBoard) {
-        for (int i = 0; i < newBoard.length; i++) {
-            for (int j = 0; j < newBoard.length; j++) {
-                board[i][j] = newBoard[i][j];
-            }
+        for (int i = 0; i < size; i++) {
+            System.arraycopy(newBoard[i], 0, board[i], 0, size);
         }
     }
 }

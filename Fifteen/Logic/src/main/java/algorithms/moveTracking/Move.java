@@ -5,14 +5,14 @@ public class Move {
     private final int size;
     private int[][] board;
 
-    public Move(Moves move, int[][] newBoard) {
+    Move(Moves move, int[][] newBoard) {
         this.move = move;
         size = newBoard.length;
         board = new int[size][size];
         setBoard(newBoard);
     }
 
-    public void makeMove() {
+    void makeMove() {
         int[] blankCoordinates = getCoordinates(size * size);
         int[] toSwitchCoordinates = getCoordinates(size * size);
 

@@ -1,7 +1,5 @@
 package algorithms.goalSystem;
 
-import algorithms.goalSystem.Goal;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,16 +8,16 @@ public class GoalSet {
     private final List<int[]> fieldsToBlock;
     private final List<int[]> fieldsToUnlock;
 
-    public GoalSet() {
+    GoalSet() {
         goals = new ArrayList<>();
         fieldsToBlock = new ArrayList<>();
         fieldsToUnlock = new ArrayList<>();
     }
 
-    public void addGoal(int x, int y, int value, boolean blocksField) {
-        Goal pom = new Goal(x,y,value);
+    void addGoal(int x, int y, int value, boolean blocksField) {
+        Goal pom = new Goal(x, y, value);
         goals.add(pom);
-        if(blocksField) {
+        if (blocksField) {
             fieldsToBlock.add(pom.getCoordinates());
         } else {
             fieldsToUnlock.add(pom.getCoordinates());

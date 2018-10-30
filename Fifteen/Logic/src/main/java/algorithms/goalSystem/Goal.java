@@ -4,7 +4,7 @@ public class Goal {
     private final int[] coordinates;
     private final int value;
 
-    public Goal(int x, int y, int value) {
+    Goal(int x, int y, int value) {
 
         coordinates = new int[]{x,y};
         this.value = value;
@@ -14,7 +14,7 @@ public class Goal {
         return value;
     }
 
-    public int[] getCoordinates() {
+    int[] getCoordinates() {
         return coordinates;
     }
 

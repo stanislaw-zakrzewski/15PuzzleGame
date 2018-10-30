@@ -24,8 +24,8 @@ public class Algorithm {
         this.board = board;
         movesSoFar = new ArrayList<>();
         blocked = new boolean[size][size];
-        for(int i = 0; i < size; i++) {
-            for(int j = 0; j < size; j++) {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
                 blocked[i][j] = false;
             }
         }
@@ -70,7 +70,7 @@ public class Algorithm {
             board = movesSoFar.get(movesSoFar.size() - 1).getBoard();
             changeBlockedFields();
 
-            System.out.println("Moves: " + movesSoFar.size() + "    Difference: " + (movesSoFar.size()-lastMovesSize));
+            System.out.println("Moves: " + movesSoFar.size() + "    Difference: " + (movesSoFar.size() - lastMovesSize));
             lastMovesSize = movesSoFar.size();
             printBoard(board);
 
@@ -118,7 +118,7 @@ public class Algorithm {
 
     private List<Moves> getPossibleMoves(Move lastMove, int[][] board) {
         List<Moves> impossibleMoves = new ArrayList<>();
-        int[] pom = getCoordinates(board, size*size);
+        int[] pom = getCoordinates(board, size * size);
         if (lastMove != null) {
             switch (lastMove.getMove()) {
                 case Up:
@@ -139,28 +139,28 @@ public class Algorithm {
         //Check if Left move is possible
         if (pom[1] == 0) {
             if (!impossibleMoves.contains(Moves.Left)) impossibleMoves.add(Moves.Left);
-        } else if (blocked[pom[0]][pom[1]-1]) {
+        } else if (blocked[pom[0]][pom[1] - 1]) {
             if (!impossibleMoves.contains(Moves.Left)) impossibleMoves.add(Moves.Left);
         }
 
         //Check if Right move is possible
         if (pom[1] == size - 1) {
             if (!impossibleMoves.contains(Moves.Right)) impossibleMoves.add(Moves.Right);
-        } else if (blocked[pom[0]][pom[1]+1]) {
+        } else if (blocked[pom[0]][pom[1] + 1]) {
             if (!impossibleMoves.contains(Moves.Right)) impossibleMoves.add(Moves.Right);
         }
 
         //Check if Up move is possible
         if (pom[0] == 0) {
             if (!impossibleMoves.contains(Moves.Up)) impossibleMoves.add(Moves.Up);
-        } else if (blocked[pom[0]-1][pom[1]]) {
+        } else if (blocked[pom[0] - 1][pom[1]]) {
             if (!impossibleMoves.contains(Moves.Up)) impossibleMoves.add(Moves.Up);
         }
 
         //Check if Down move is possible
         if (pom[0] == size - 1) {
             if (!impossibleMoves.contains(Moves.Down)) impossibleMoves.add(Moves.Down);
-        } else if (blocked[pom[0]+1][pom[1]]) {
+        } else if (blocked[pom[0] + 1][pom[1]]) {
             if (!impossibleMoves.contains(Moves.Down)) impossibleMoves.add(Moves.Down);
         }
 
@@ -179,23 +179,13 @@ public class Algorithm {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 int pom = board[j][i];
-                if (pom == size*size) {
+                if (pom == size * size) {
                     System.out.print("   ");
                 } else if (pom > 9) {
                     System.out.print(pom + " ");
                 } else {
                     System.out.print(" " + pom + " ");
                 }
-            }
-            System.out.println();
-        }
-        System.out.println();
-    }
-
-    private void printBlocked() {
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                System.out.print(blocked[j][i] ? "1" : "0");
             }
             System.out.println();
         }

@@ -60,18 +60,13 @@ public class GoalSequence {
         currentGoals = goalsSequence.get(goalsPosition);
     }
 
-    public List<GoalSet> getGoalsSequence() {
-        return goalsSequence;
-    }
-
     public boolean hasNext() {
         return !goalsSequence.get(goalsSequence.size() - 1).equals(currentGoals);
     }
 
-    public GoalSet next() {
+    public void next() {
         goalsPosition ++;
         currentGoals = goalsSequence.get(goalsPosition);
-        return currentGoals;
     }
 
     public GoalSet getCurrentGoals() {

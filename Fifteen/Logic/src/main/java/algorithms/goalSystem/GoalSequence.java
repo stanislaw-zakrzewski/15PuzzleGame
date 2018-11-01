@@ -24,7 +24,8 @@ public class GoalSequence {
             }
             goalsSequence.add(new GoalSet());
             goalsSequence.get(goalsSequence.size() - 1).addGoal(size - 2, i, pom + 1, true);
-            goalsSequence.get(goalsSequence.size() - 1).addGoal(size - 2, i+2, pom, false);
+            goalsSequence.get(goalsSequence.size() - 1).addGoalNotDesired(size - 1, i, pom);
+            goalsSequence.get(goalsSequence.size() - 1).addGoalNotDesired(size - 1, i+1, pom);
             goalsSequence.add(new GoalSet());
             goalsSequence.get(goalsSequence.size() - 1).addGoal(size - 2, i + 1, pom, false);
             goalsSequence.add(new GoalSet());
@@ -38,7 +39,8 @@ public class GoalSequence {
         for(int i = 0; i < size-2; i++) {
             goalsSequence.add(new GoalSet());
             goalsSequence.get(goalsSequence.size()-1).addGoal(i,size-2,pom+size,true);
-            goalsSequence.get(goalsSequence.size() - 1).addGoal(i+2, size - 2, pom, false);
+            goalsSequence.get(goalsSequence.size() - 1).addGoalNotDesired(i, size - 1, pom);
+            goalsSequence.get(goalsSequence.size() - 1).addGoalNotDesired(i+1, size - 1, pom);
             goalsSequence.add(new GoalSet());
             goalsSequence.get(goalsSequence.size()-1).addGoal(i+1,size-2,pom,false);
             goalsSequence.add(new GoalSet());

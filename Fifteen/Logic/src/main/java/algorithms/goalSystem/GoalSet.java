@@ -15,13 +15,18 @@ public class GoalSet {
     }
 
     void addGoal(int x, int y, int value, boolean blocksField) {
-        Goal pom = new Goal(x, y, value);
+        Goal pom = new Goal(x, y, value, true);
         goals.add(pom);
         if (blocksField) {
             fieldsToBlock.add(pom.getCoordinates());
         } else {
             fieldsToUnlock.add(pom.getCoordinates());
         }
+    }
+
+    void addGoalNotDesired(int x, int y, int value) {
+        Goal pom = new Goal(x,y,value,false);
+        goals.add(pom);
     }
 
     public List<Goal> getGoals() {

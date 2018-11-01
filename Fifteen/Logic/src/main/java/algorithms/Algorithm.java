@@ -33,7 +33,6 @@ public class Algorithm {
 
     public void start() {
         printBoard(board);
-        int lastMovesSize = 0;
         List<MoveSequence> moveSequences = new ArrayList<>();
         List<Moves> possibleMoves;
         Optional<MoveSequence> completesGoal;
@@ -56,11 +55,20 @@ public class Algorithm {
                 }
             }
             while (newSequences.stream().noneMatch(ms -> completesGoals(ms.getBoardAfter()))) {
+                final int closestDistance;
                 newSequences = new ArrayList<>();
                 for (MoveSequence bs : moveSequences) {
                     possibleMoves = getPossibleMoves(bs.getMovesSoFar().get(bs.getMovesSoFar().size() - 1), bs.getBoardAfter());
                     for (Moves move : possibleMoves) {
                         newSequences.add(new MoveSequence(bs, move));
+                    }
+                }
+                moveSequences = newSequences;
+                closestDistance = moveSequences.stream().mapToInt(v -> distanceToGoals(v.getBoardAfter())).min().getAsInt();
+                newSequences = new ArrayList<>();
+                for(MoveSequence ms : moveSequences) {
+                    if(distanceToGoals(ms.getBoardAfter()) <= closestDistance+1) {
+                        newSequences.add(ms);
                     }
                 }
                 moveSequences = newSequences;
@@ -70,9 +78,8 @@ public class Algorithm {
             board = movesSoFar.get(movesSoFar.size() - 1).getBoard();
             changeBlockedFields();
 
-            System.out.println("Moves: " + movesSoFar.size() + "    Difference: " + (movesSoFar.size() - lastMovesSize));
-            lastMovesSize = movesSoFar.size();
-            printBoard(board);
+            //System.out.println("Moves: " + movesSoFar.size() + "    Difference: " + (movesSoFar.size() - lastMovesSize));
+            //printBoard(board);
 
             if (goals.hasNext()) {
                 goals.next();
@@ -85,15 +92,43 @@ public class Algorithm {
                 moveSequences.add(new MoveSequence(m, board));
             }
         }
+        printBoard(board);
     }
 
     private boolean completesGoals(int[][] board) {
         for (Goal g : goals.getCurrentGoals().getGoals()) {
-            if (board[g.getX()][g.getY()] != g.getValue()) {
+            if(g.isValueDesired()) {
+                if (board[g.getX()][g.getY()] != g.getValue()) {
+                    return false;
+                }
+            } else if (board[g.getX()][g.getY()] == g.getValue()) {
                 return false;
             }
         }
         return true;
+    }
+
+    private int distanceToGoals(int [][] board) {
+        int pom1 = 0;
+        int pom2 = 0;
+        for(Goal g : goals.getCurrentGoals().getGoals()) {
+            if(g.isValueDesired()) {
+                pom1 += calculateDistance(board,g.getValue(),new int[]{g.getX(),g.getY()});
+            } else {
+                if(board[g.getX()][g.getY()] == g.getValue()) {
+                    pom2 = size*size*size;
+                }
+            }
+        }
+        return pom1+pom2;
+    }
+
+    private int calculateDistance(int[][] board, int value, int[] desiredPosition) {
+        int[] pom1 = getCoordinates(board, value);
+        int pom2 = 0;
+        pom2 += Math.abs(desiredPosition[0]-pom1[0]);
+        pom2 += Math.abs(desiredPosition[1]-pom1[1]);
+        return pom2;
     }
 
     private void changeBlockedFields() {

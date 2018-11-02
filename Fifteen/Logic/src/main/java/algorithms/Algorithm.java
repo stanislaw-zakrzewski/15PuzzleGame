@@ -225,6 +225,14 @@ public class Algorithm {
         return allMoves;
     }
 
+    public List<Moves> getMoves() {
+        List<Moves> pom = new ArrayList<>();
+        for(Move m : movesSoFar) {
+            pom.add(m.getMove());
+        }
+        return pom;
+    }
+
     private void printBoard(int[][] board) {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {

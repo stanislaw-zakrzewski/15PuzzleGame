@@ -38,12 +38,11 @@ public class BoardGenerator {
                     flatBoard[j*size+i] = pom;
                 }
             }
-            System.out.println(isSolvable(flatBoard));
         } while (!isSolvable(flatBoard));
         return board;
     }
 
-    public boolean isSolvable(int[] puzzle)
+    private boolean isSolvable(int[] puzzle)
     {
         int parity = 0;
         int gridWidth = (int) Math.sqrt(puzzle.length);
@@ -77,16 +76,5 @@ public class BoardGenerator {
         } else { // odd grid
             return parity % 2 == 0;
         }
-    }
-
-    private int[] getCoordinates(int[][] board, int number) {
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                if (board[i][j] == number) {
-                    return new int[]{i, j};
-                }
-            }
-        }
-        return new int[]{0, 0};
     }
 }

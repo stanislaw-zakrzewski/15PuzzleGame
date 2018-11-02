@@ -9,6 +9,7 @@ import algorithms.moveTracking.Moves;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.OptionalInt;
 
 public class Algorithm {
     private int[][] board;
@@ -33,21 +34,25 @@ public class Algorithm {
 
     public void start() {
         printBoard(board);
+        int lastMovesSize = 0;
         List<MoveSequence> moveSequences = new ArrayList<>();
+        List<MoveSequence> newSequences;
         List<Moves> possibleMoves;
         Optional<MoveSequence> completesGoal;
 
-        if (movesSoFar.size() == 0) {
-            possibleMoves = getPossibleMoves(null, board);
-        } else {
-            possibleMoves = getPossibleMoves(movesSoFar.get(movesSoFar.size() - 1), board);
-        }
-        for (Moves m : possibleMoves) {
-            moveSequences.add(new MoveSequence(m, board));
-        }
-
         while (true) {
-            List<MoveSequence> newSequences = new ArrayList<>();
+            moveSequences = new ArrayList<>();
+            if (movesSoFar.size() == 0) {
+                possibleMoves = getPossibleMoves(null, board);
+            } else {
+                possibleMoves = getPossibleMoves(movesSoFar.get(movesSoFar.size() - 1), board);
+            }
+            for (Moves m : possibleMoves) {
+                moveSequences.add(new MoveSequence(m, board));
+            }
+
+
+            newSequences = new ArrayList<>();
             for (MoveSequence bs : moveSequences) {
                 possibleMoves = getPossibleMoves(null, bs.getBoardAfter());
                 for (Moves move : possibleMoves) {
@@ -55,7 +60,7 @@ public class Algorithm {
                 }
             }
             while (newSequences.stream().noneMatch(ms -> completesGoals(ms.getBoardAfter()))) {
-                final int closestDistance;
+                final OptionalInt closestDistance;
                 newSequences = new ArrayList<>();
                 for (MoveSequence bs : moveSequences) {
                     possibleMoves = getPossibleMoves(bs.getMovesSoFar().get(bs.getMovesSoFar().size() - 1), bs.getBoardAfter());
@@ -64,45 +69,52 @@ public class Algorithm {
                     }
                 }
                 moveSequences = newSequences;
-                closestDistance = moveSequences.stream().mapToInt(v -> distanceToGoals(v.getBoardAfter())).min().getAsInt();
-                newSequences = new ArrayList<>();
-                for(MoveSequence ms : moveSequences) {
-                    if(distanceToGoals(ms.getBoardAfter()) <= closestDistance+1) {
-                        newSequences.add(ms);
+                closestDistance = moveSequences.stream().mapToInt(v -> distanceToGoals(v.getBoardAfter())).min();
+                if(closestDistance.isPresent()) {
+                    newSequences = new ArrayList<>();
+                    for (MoveSequence ms : moveSequences) {
+                        if (distanceToGoals(ms.getBoardAfter()) <= closestDistance.getAsInt() + 1) {
+                            newSequences.add(ms);
+                        }
                     }
+                    moveSequences = newSequences;
                 }
-                moveSequences = newSequences;
             }
             completesGoal = moveSequences.stream().filter(ms -> completesGoals(ms.getBoardAfter())).findFirst();
             completesGoal.ifPresent(moveSequence -> movesSoFar.addAll(moveSequence.getMovesSoFar()));
-            board = movesSoFar.get(movesSoFar.size() - 1).getBoard();
+            if(movesSoFar.size() > 0) {
+                board = movesSoFar.get(movesSoFar.size() - 1).getBoard();
+            }
             changeBlockedFields();
 
-            //System.out.println("Moves: " + movesSoFar.size() + "    Difference: " + (movesSoFar.size() - lastMovesSize));
-            //printBoard(board);
+            System.out.println("Moves: " + movesSoFar.size() + "    Difference: " + (movesSoFar.size() - lastMovesSize));
+            printBoard(board);
+            lastMovesSize = movesSoFar.size();
+            System.out.println();
 
             if (goals.hasNext()) {
                 goals.next();
             } else {
                 break;
             }
-            moveSequences = new ArrayList<>();
-            possibleMoves = getPossibleMoves(movesSoFar.get(movesSoFar.size() - 1), board);
-            for (Moves m : possibleMoves) {
-                moveSequences.add(new MoveSequence(m, board));
-            }
         }
         printBoard(board);
     }
 
     private boolean completesGoals(int[][] board) {
-        for (Goal g : goals.getCurrentGoals().getGoals()) {
-            if(g.isValueDesired()) {
-                if (board[g.getX()][g.getY()] != g.getValue()) {
+        if(goals.getCurrentGoals().getNumberToGetTo() > 0) {
+            if(distanceToGoals(board) > 1) {
+                return false;
+            }
+        } else {
+            for (Goal g : goals.getCurrentGoals().getGoals()) {
+                if (g.isValueDesired()) {
+                    if (board[g.getX()][g.getY()] != g.getValue()) {
+                        return false;
+                    }
+                } else if (board[g.getX()][g.getY()] == g.getValue()) {
                     return false;
                 }
-            } else if (board[g.getX()][g.getY()] == g.getValue()) {
-                return false;
             }
         }
         return true;
@@ -111,12 +123,17 @@ public class Algorithm {
     private int distanceToGoals(int [][] board) {
         int pom1 = 0;
         int pom2 = 0;
-        for(Goal g : goals.getCurrentGoals().getGoals()) {
-            if(g.isValueDesired()) {
-                pom1 += calculateDistance(board,g.getValue(),new int[]{g.getX(),g.getY()});
-            } else {
-                if(board[g.getX()][g.getY()] == g.getValue()) {
-                    pom2 = size*size*size;
+        if(goals.getCurrentGoals().getNumberToGetTo() > 0) {
+            int[] pom3 = getCoordinates(board, size*size);
+            pom1 = calculateDistance(board, goals.getCurrentGoals().getNumberToGetTo(), pom3);
+        } else {
+            for (Goal g : goals.getCurrentGoals().getGoals()) {
+                if (g.isValueDesired()) {
+                    pom1 += calculateDistance(board, g.getValue(), new int[]{g.getX(), g.getY()});
+                } else {
+                    if (board[g.getX()][g.getY()] == g.getValue()) {
+                        pom2 = size * size * size;
+                    }
                 }
             }
         }
@@ -204,9 +221,7 @@ public class Algorithm {
         allMoves.add(Moves.Down);
         allMoves.add(Moves.Left);
         allMoves.add(Moves.Right);
-        for (Moves m : impossibleMoves) {
-            allMoves.remove(m);
-        }
+        allMoves.removeAll(impossibleMoves);
         return allMoves;
     }
 

@@ -19,8 +19,9 @@
     </rowConstraints>
    <Pane prefHeight="600.0" prefWidth="600.0" GridPane.rowIndex="3">
       <children>
-         <GridPane id="gp" layoutX="26.0" layoutY="60.0">
+         <GridPane fx:id="grid" prefHeight="600.0" prefWidth="600.0">
            <columnConstraints>
+               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
            </columnConstraints>
@@ -31,11 +32,11 @@
            </rowConstraints>
          </GridPane>
       </children></Pane>
-   <Button fx:id="start" mnemonicParsing="false" onAction="#Start" prefHeight="100.0" prefWidth="300.0" text="Start" GridPane.rowIndex="1">
+   <Button fx:id="start" mnemonicParsing="false" onAction="#start" prefHeight="100.0" prefWidth="300.0" text="Start" GridPane.rowIndex="1">
       <GridPane.margin>
          <Insets bottom="50.0" />
       </GridPane.margin></Button>
-   <Button mnemonicParsing="false" prefHeight="100.0" prefWidth="300.0" text="Solve" GridPane.rowIndex="1">
+   <Button fx:id="solve" mnemonicParsing="false" onAction="#solve" prefHeight="100.0" prefWidth="300.0" text="Solve" GridPane.rowIndex="1">
       <GridPane.margin>
          <Insets bottom="50.0" left="300.0" />
       </GridPane.margin>

@@ -34,23 +34,22 @@ public class Algorithm {
 
     public void start() {
         printBoard(board);
-        int lastMovesSize = 0;
+        //int lastMovesSize = 0;
         List<MoveSequence> moveSequences;
         List<MoveSequence> newSequences;
         List<Moves> possibleMoves;
         Optional<MoveSequence> completesGoal;
 
         while (true) {
-            //Checks if any goal has been reached if so changes current goal set to next goal set, prints board and changes blocked fields
+            //Checks if any goal has been reached if so changes current goal set to next goal set and changes blocked fields
             while (completesGoals(board)) {
                 if (goals.hasNext()) {
                     //Changes blocked fields
                     changeBlockedFields();
 
-                    //Prints board after reaching every goal
-                    System.out.println("Moves: " + movesSoFar.size() + "    Difference: " + (movesSoFar.size() - lastMovesSize));
-                    printBoard(board);
-                    lastMovesSize = movesSoFar.size();
+                    //System.out.println("Moves: " + movesSoFar.size() + "    Difference: " + (movesSoFar.size() - lastMovesSize));
+                    //printBoard(board);
+                    //lastMovesSize = movesSoFar.size();
 
                     //Sets current goal to next goal
                     goals.next();
@@ -101,13 +100,12 @@ public class Algorithm {
                 board = movesSoFar.get(movesSoFar.size() - 1).getBoard();
             }
         }
+        printBoard(board);
     }
 
     private boolean completesGoals(int[][] board) {
         if(goals.getCurrentGoals().getNumberToGetTo() > 0) {
-            if(distanceToGoals(board) > 1) {
-                return false;
-            }
+            return distanceToGoals(board) <= 1;
         } else {
             for (Goal g : goals.getCurrentGoals().getGoals()) {
                 if (g.isValueDesired()) {

@@ -65,19 +65,10 @@ public class GoalSequence {
         goalFactory.nextSequence()
                 .addGoal(size-1, size-2,pom+1,true);
         goalFactory.nextSequence()
-                .addGoal(size-2, size-1,pom+2,true);
+                .addGoal(size-2, size-1,size*size-1,true);
+        goalFactory.nextSequence()
+                .addGoal(size-2, size-2,size * size,true);
         currentGoals = goalsSequence.get(goalsPosition);
-    }
-
-    private int[] getCoordinates(int[][] board, int number) {
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                if (board[i][j] == number) {
-                    return new int[]{i, j};
-                }
-            }
-        }
-        return new int[]{0, 0};
     }
 
     public boolean hasNext() {

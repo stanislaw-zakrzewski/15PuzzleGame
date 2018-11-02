@@ -8,7 +8,7 @@ import java.math.BigInteger;
 public class Main {
     public static void main(String[] args) {
         BoardGenerator boardGenerator = new BoardGenerator();
-        Algorithm algorithm = new Algorithm(boardGenerator.GenerateNew(4));
+        Algorithm algorithm = new Algorithm(boardGenerator.GenerateNew(7));
 
         long time = System.nanoTime();
         algorithm.start();

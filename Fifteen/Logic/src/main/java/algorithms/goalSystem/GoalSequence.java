@@ -31,7 +31,8 @@ public class GoalSequence {
                     .addGoalForBlank(pom);
             goalFactory.nextSequence()
                     .addGoal(size - 1, i, pom, true)
-                    .addGoalNotDesired(size - 2, i, pom+1);
+                    .addGoalNotDesired(size - 2, i, pom+1)
+                    .addGoalNotDesired(size - 2, i+1, pom+1);
             goalFactory.nextSequence()
                     .addGoalForBlank(pom + 1);
             goalFactory.nextSequence()

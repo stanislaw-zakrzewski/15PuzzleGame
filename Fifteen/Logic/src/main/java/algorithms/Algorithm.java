@@ -35,12 +35,34 @@ public class Algorithm {
     public void start() {
         printBoard(board);
         int lastMovesSize = 0;
-        List<MoveSequence> moveSequences = new ArrayList<>();
+        List<MoveSequence> moveSequences;
         List<MoveSequence> newSequences;
         List<Moves> possibleMoves;
         Optional<MoveSequence> completesGoal;
 
         while (true) {
+            //Checks if any goal has been reached if so changes current goal set to next goal set, prints board and changes blocked fields
+            while (completesGoals(board)) {
+                if (goals.hasNext()) {
+                    //Changes blocked fields
+                    changeBlockedFields();
+
+                    //Prints board after reaching every goal
+                    System.out.println("Moves: " + movesSoFar.size() + "    Difference: " + (movesSoFar.size() - lastMovesSize));
+                    printBoard(board);
+                    lastMovesSize = movesSoFar.size();
+
+                    //Sets current goal to next goal
+                    goals.next();
+                } else {
+                    //After every goal has been reached stops algorithm
+                    break;
+                }
+            }
+            if(!goals.hasNext()) {
+                break;
+            }
+
             moveSequences = new ArrayList<>();
             if (movesSoFar.size() == 0) {
                 possibleMoves = getPossibleMoves(null, board);
@@ -51,15 +73,7 @@ public class Algorithm {
                 moveSequences.add(new MoveSequence(m, board));
             }
 
-
-            newSequences = new ArrayList<>();
-            for (MoveSequence bs : moveSequences) {
-                possibleMoves = getPossibleMoves(null, bs.getBoardAfter());
-                for (Moves move : possibleMoves) {
-                    newSequences.add(new MoveSequence(bs, move));
-                }
-            }
-            while (newSequences.stream().noneMatch(ms -> completesGoals(ms.getBoardAfter()))) {
+            while (moveSequences.stream().noneMatch(ms -> completesGoals(ms.getBoardAfter()))) {
                 final OptionalInt closestDistance;
                 newSequences = new ArrayList<>();
                 for (MoveSequence bs : moveSequences) {
@@ -70,7 +84,7 @@ public class Algorithm {
                 }
                 moveSequences = newSequences;
                 closestDistance = moveSequences.stream().mapToInt(v -> distanceToGoals(v.getBoardAfter())).min();
-                if(closestDistance.isPresent()) {
+                if (closestDistance.isPresent()) {
                     newSequences = new ArrayList<>();
                     for (MoveSequence ms : moveSequences) {
                         if (distanceToGoals(ms.getBoardAfter()) <= closestDistance.getAsInt() + 1) {
@@ -80,25 +94,13 @@ public class Algorithm {
                     moveSequences = newSequences;
                 }
             }
+
             completesGoal = moveSequences.stream().filter(ms -> completesGoals(ms.getBoardAfter())).findFirst();
             completesGoal.ifPresent(moveSequence -> movesSoFar.addAll(moveSequence.getMovesSoFar()));
-            if(movesSoFar.size() > 0) {
+            if (movesSoFar.size() > 0) {
                 board = movesSoFar.get(movesSoFar.size() - 1).getBoard();
             }
-            changeBlockedFields();
-
-            System.out.println("Moves: " + movesSoFar.size() + "    Difference: " + (movesSoFar.size() - lastMovesSize));
-            printBoard(board);
-            lastMovesSize = movesSoFar.size();
-            System.out.println();
-
-            if (goals.hasNext()) {
-                goals.next();
-            } else {
-                break;
-            }
         }
-        printBoard(board);
     }
 
     private boolean completesGoals(int[][] board) {
@@ -239,5 +241,6 @@ public class Algorithm {
             }
             System.out.println();
         }
+        System.out.println();
     }
 }

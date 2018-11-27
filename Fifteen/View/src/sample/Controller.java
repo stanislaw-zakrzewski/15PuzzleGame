@@ -37,7 +37,7 @@ public class Controller {
     public void start(ActionEvent event) {
         buttonToPosition = new HashMap<>();
         boardGenerator = new BoardGenerator();
-        board = boardGenerator.GenerateNew(3);
+        board = boardGenerator.GenerateNew(4);
         size = board.length;
         buttons = new Button[size][size];
         algorithm = new Algorithm(board);

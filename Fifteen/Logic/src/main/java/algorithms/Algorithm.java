@@ -99,6 +99,7 @@ public class Algorithm {
             if (movesSoFar.size() > 0) {
                 board = movesSoFar.get(movesSoFar.size() - 1).getBoard();
             }
+            printBoard(board);
         }
         printBoard(board);
     }

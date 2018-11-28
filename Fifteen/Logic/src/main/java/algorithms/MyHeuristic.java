@@ -2,8 +2,9 @@ package algorithms;
 
 public class MyHeuristic extends AAlgorithm {
 
-    public MyHeuristic() {
-        super();
+    public MyHeuristic(String inputFilePath) {
+        super("myown", inputFilePath);
+        solutionName = "myown";
     }
 
     @Override

@@ -1,5 +1,5 @@
 package algorithms.moveTracking;
 
 public enum Moves {
-    Up, Down, Left, Right
+    U, D, L, R
 }

@@ -1,6 +1,5 @@
 package sample;
 
-import algorithms.moveTracking.Move;
 import algorithms.moveTracking.Moves;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
@@ -25,16 +24,16 @@ public class ValuesUpdater implements Runnable {
             int[] pom1 = getCoordinates(size * size);
             int[] pom2 = new int[]{pom1[0], pom1[1]};
             switch (m) {
-                case Up:
+                case U:
                     pom2[0] -= 1;
                     break;
-                case Down:
+                case D:
                     pom2[0] += 1;
                     break;
-                case Left:
+                case L:
                     pom2[1] -= 1;
                     break;
-                case Right:
+                case R:
                     pom2[1] += 1;
                     break;
             }

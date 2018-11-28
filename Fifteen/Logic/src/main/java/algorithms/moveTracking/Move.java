@@ -2,43 +2,45 @@ package algorithms.moveTracking;
 
 public class Move {
     private final Moves move;
-    private final int size;
+    private final int w;
+    private final int k;
     private int[][] board;
 
     Move(Moves move, int[][] newBoard) {
         this.move = move;
-        size = newBoard.length;
-        board = new int[size][size];
+        w = newBoard.length;
+        k = newBoard[0].length;
+        board = new int[w][k];
         setBoard(newBoard);
     }
 
     void makeMove() {
-        int[] blankCoordinates = getCoordinates(size * size);
-        int[] toSwitchCoordinates = getCoordinates(size * size);
+        int[] blankCoordinates = getCoordinates(0);
+        int[] toSwitchCoordinates = getCoordinates(0);
 
         switch (move) {
-            case Up:
+            case U:
                 toSwitchCoordinates[0] -= 1;
                 break;
-            case Down:
+            case D:
                 toSwitchCoordinates[0] += 1;
                 break;
-            case Left:
+            case L:
                 toSwitchCoordinates[1] -= 1;
                 break;
-            case Right:
+            case R:
                 toSwitchCoordinates[1] += 1;
                 break;
         }
 
         int valueToSwitch = board[toSwitchCoordinates[0]][toSwitchCoordinates[1]];
-        board[toSwitchCoordinates[0]][toSwitchCoordinates[1]] = size * size;
+        board[toSwitchCoordinates[0]][toSwitchCoordinates[1]] = 0;
         board[blankCoordinates[0]][blankCoordinates[1]] = valueToSwitch;
     }
 
     private int[] getCoordinates(int number) {
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
+        for (int i = 0; i < w; i++) {
+            for (int j = 0; j < k; j++) {
                 if (board[i][j] == number) {
                     return new int[]{i, j};
                 }
@@ -56,8 +58,12 @@ public class Move {
     }
 
     private void setBoard(int[][] newBoard) {
-        for (int i = 0; i < size; i++) {
-            System.arraycopy(newBoard[i], 0, board[i], 0, size);
+        for (int i = 0; i < w; i++) {
+            System.arraycopy(newBoard[i], 0, board[i], 0, k);
         }
+    }
+
+    public char getMoveSignature() {
+        return move.toString().toCharArray()[0];
     }
 }

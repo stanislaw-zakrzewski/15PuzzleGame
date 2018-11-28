@@ -19,16 +19,16 @@ public class MoveHandler {
         int[] pom1 = getCoordinates(size * size);
         int[] pom2 = new int[]{pom1[0], pom1[1]};
         switch (move) {
-            case Up:
+            case U:
                 pom2[0] -= 1;
                 break;
-            case Down:
+            case D:
                 pom2[0] += 1;
                 break;
-            case Left:
+            case L:
                 pom2[1] -= 1;
                 break;
-            case Right:
+            case R:
                 pom2[1] += 1;
                 break;
         }

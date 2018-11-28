@@ -1,6 +1,6 @@
 package fileOperations;
 
-import algorithms.Board;
+import gameComponents.Board;
 
 import java.io.File;
 import java.util.Scanner;

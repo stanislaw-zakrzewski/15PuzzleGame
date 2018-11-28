@@ -8,6 +8,7 @@ public class SaveToFile {
         try {
             PrintWriter out = new PrintWriter(path + "" + fileName);
             out.write(fileContent);
+            out.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

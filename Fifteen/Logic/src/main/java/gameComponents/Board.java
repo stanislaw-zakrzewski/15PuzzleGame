@@ -1,4 +1,4 @@
-package algorithms;
+package gameComponents;
 
 public class Board {
     private int[][] board;

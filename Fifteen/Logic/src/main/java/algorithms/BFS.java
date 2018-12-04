@@ -6,9 +6,11 @@ import algorithms.methods.OtherMethods;
 import algorithms.moveTracking.Move;
 import algorithms.moveTracking.MoveSequence;
 import algorithms.moveTracking.Moves;
+import gameComponents.TreeNode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 
 public class BFS extends AAlgorithm {
 
@@ -19,6 +21,10 @@ public class BFS extends AAlgorithm {
 
     @Override
     public void solve() {
+
+
+
+        /*
         MoveSequence solution = null;
         maxDepth = 23;
         int depthCounter = 0;
@@ -27,21 +33,25 @@ public class BFS extends AAlgorithm {
         List<MoveSequence> moveSequences = new ArrayList<>();
         List<MoveSequence> newSequences = new ArrayList<>();
 
-        List<Moves> firstMoves = FindingMethods.getPossibleMoves(movesOrder, null, board.getBoard(), null);
-        for (Moves m : firstMoves) {
-            System.out.println(m);
-            MoveSequence temp = new MoveSequence(m, board.getBoard());
-            if (CheckingMethods.isSolved(temp.getBoardAfter())) {
-                solution = temp;
-                isSolved = true;
-                break;
-            }
-            newSequences.add(temp);
+        if(CheckingMethods.isSolved(board.getBoard())) {
+            isSolved = true;
         }
-        moveSequences = newSequences;
-        newSequences = new ArrayList<>();
 
-        System.out.println("nos");
+        if(!isSolved) {
+            List<Moves> firstMoves = FindingMethods.getPossibleMoves(movesOrder, null, board.getBoard(), null);
+            for (Moves m : firstMoves) {
+                System.out.println(m);
+                MoveSequence temp = new MoveSequence(m, board.getBoard());
+                if (CheckingMethods.isSolved(temp.getBoardAfter())) {
+                    solution = temp;
+                    isSolved = true;
+                    break;
+                }
+                newSequences.add(temp);
+            }
+            moveSequences = newSequences;
+            newSequences = new ArrayList<>();
+        }
 
         if(!isSolved)
         while (depthCounter < maxDepth) {
@@ -70,6 +80,6 @@ public class BFS extends AAlgorithm {
             for (Move m : solution.getMovesSoFar()) {
                 movesSoFar.add(m.getMoveSignature());
             }
-        }
+        }*/
     }
 }

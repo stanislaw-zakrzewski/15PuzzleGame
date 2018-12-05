@@ -1,5 +1,7 @@
 package sample;
 
+import algorithms.AAlgorithm;
+import algorithms.BFS;
 import algorithms.methods.CheckingMethods;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -25,18 +27,13 @@ public class Controller {
     private String modifierSelected;
     private File file;
 
-    public Controller() {
-
-    }
-
-
     public void browseFile() {
         solve.setDisable(true);
         JFileChooser fileChooser = new JFileChooser(new File("").getAbsolutePath());
         int i = fileChooser.showOpenDialog(null);
-        if(i == JFileChooser.APPROVE_OPTION) {
+        if (i == JFileChooser.APPROVE_OPTION) {
             file = fileChooser.getSelectedFile();
-            if(CheckingMethods.isFileCorrect(file)) {
+            if (CheckingMethods.isFileCorrect(file)) {
                 informations.setText(file.getPath());
                 setAlgorithm();
             } else {
@@ -130,6 +127,9 @@ public class Controller {
     }
 
     public void solvePuzzle() {
-        System.out.println(algorithmSelected + " " + modifierSelected + " " + file.getPath());
+        AAlgorithm algorithm = new BFS(modifierSelected, file.getPath());
+        algorithm.solve();
+        algorithm.saveOutputFile();
+        algorithm.saveStatsFile();
     }
 }

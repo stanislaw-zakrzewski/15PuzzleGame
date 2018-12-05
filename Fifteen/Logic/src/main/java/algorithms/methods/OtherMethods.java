@@ -27,4 +27,28 @@ public class OtherMethods {
         }
         return moves;
     }
+
+    public static void makeMove(int[][] board, Moves move) {
+        int[] blankCoordinates = FindingMethods.getCoordinates(board,0);
+        int[] toSwitchCoordinates = FindingMethods.getCoordinates(board, 0);
+
+        switch (move) {
+            case U:
+                toSwitchCoordinates[0] -= 1;
+                break;
+            case D:
+                toSwitchCoordinates[0] += 1;
+                break;
+            case L:
+                toSwitchCoordinates[1] -= 1;
+                break;
+            case R:
+                toSwitchCoordinates[1] += 1;
+                break;
+        }
+
+        int valueToSwitch = board[toSwitchCoordinates[0]][toSwitchCoordinates[1]];
+        board[toSwitchCoordinates[0]][toSwitchCoordinates[1]] = 0;
+        board[blankCoordinates[0]][blankCoordinates[1]] = valueToSwitch;
+    }
 }

@@ -1,11 +1,8 @@
 package algorithms;
 
-import algorithms.goalSystem.Goal;
-import algorithms.goalSystem.GoalSequence;
+
 import algorithms.methods.FindingMethods;
 import algorithms.methods.OtherMethods;
-import algorithms.moveTracking.Move;
-import algorithms.moveTracking.MoveSequence;
 import algorithms.moveTracking.Moves;
 
 import java.util.ArrayList;
@@ -13,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.OptionalInt;
 
-public class Algorithm {
+public class Algorithm {/*
     private int[][] board;
     private final int w;
     private final int k;
@@ -52,7 +49,7 @@ public class Algorithm {
                     //Changes blocked fields
                     changeBlockedFields();
 
-                    //System.out.println("Moves: " + movesSoFar.size() + "    Difference: " + (movesSoFar.size() - lastMovesSize));
+
                     //printBoard(board);
                     //lastMovesSize = movesSoFar.size();
 
@@ -190,5 +187,5 @@ public class Algorithm {
             System.out.println();
         }
         System.out.println();
-    }
+    }*/
 }

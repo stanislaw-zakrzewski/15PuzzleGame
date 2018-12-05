@@ -1,5 +1,6 @@
 package algorithms;
 
+import algorithms.moveTracking.Moves;
 import fileOperations.ReadFile;
 import fileOperations.SaveToFile;
 import gameComponents.Board;
@@ -9,7 +10,7 @@ import java.util.List;
 
 public abstract class AAlgorithm {
     protected Board board;
-    List<Character> movesSoFar;
+    List<Moves> movesSoFar;
     String solutionName;
     String solutionInfo;
     protected String path;
@@ -39,7 +40,7 @@ public abstract class AAlgorithm {
         fileContents = new StringBuilder();
         if(isSolved) {
             fileContents.append(movesSoFar.size()).append(System.getProperty("line.separator"));
-            movesSoFar.forEach(move -> fileContents.append(move));
+            movesSoFar.forEach(move -> fileContents.append(moveToCharacter(move)));
         } else {
             fileContents.append("-1");
         }
@@ -55,7 +56,26 @@ public abstract class AAlgorithm {
         fileContents.append(statesVisited).append(System.getProperty("line.separator"));
         fileContents.append(statesProcessed).append(System.getProperty("line.separator"));
         fileContents.append(maxDepth).append(System.getProperty("line.separator"));
-        fileContents.append(time).append(System.getProperty("line.separator"));
+        String[] t = Float.toString(time/1000000).split("\\.");
+        fileContents.append(t[0]).append(".").append(t[1], 0, 3).append(System.getProperty("line.separator"));
         SaveToFile.Save(path, statsFileName, fileContents.toString());
+    }
+
+    private char moveToCharacter(Moves move) {
+        switch (move) {
+            case D:
+                return 'd';
+            case L:
+                return 'l';
+            case R:
+                return 'r';
+            case U:
+                return 'u';
+        }
+        return '?';
+    }
+
+    public void setTime(float time) {
+        this.time = time;
     }
 }

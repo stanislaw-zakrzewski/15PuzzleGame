@@ -1,12 +1,12 @@
 package algorithms.methods;
 
-import algorithms.moveTracking.Moves;
+import algorithms.Moves;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class OtherMethods {
-    public static List<Moves> arrange(String order) {
+    static List<Moves> arrange(String order) {
         List<Moves> moves = new ArrayList<>();
         char[] o = order.toCharArray();
         for(char c : o) {
@@ -28,10 +28,10 @@ public class OtherMethods {
         return moves;
     }
 
+    @SuppressWarnings("Duplicates")
     public static void makeMove(int[][] board, Moves move) {
-        int[] blankCoordinates = FindingMethods.getCoordinates(board,0);
-        int[] toSwitchCoordinates = FindingMethods.getCoordinates(board, 0);
-
+        int[] blankCoordinates = FindingMethods.getCoordinates(board);
+        int[] toSwitchCoordinates = FindingMethods.getCoordinates(board);
         switch (move) {
             case U:
                 toSwitchCoordinates[0] -= 1;
@@ -46,7 +46,6 @@ public class OtherMethods {
                 toSwitchCoordinates[1] += 1;
                 break;
         }
-
         int valueToSwitch = board[toSwitchCoordinates[0]][toSwitchCoordinates[1]];
         board[toSwitchCoordinates[0]][toSwitchCoordinates[1]] = 0;
         board[blankCoordinates[0]][blankCoordinates[1]] = valueToSwitch;

@@ -1,15 +1,15 @@
 package algorithms.methods;
 
-import algorithms.moveTracking.Moves;
+import algorithms.Moves;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class FindingMethods {
-    public static int[] getCoordinates(int[][] board, int number) {
+    static int[] getCoordinates(int[][] board) {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
-                if (board[i][j] == number) {
+                if (board[i][j] == 0) {
                     return new int[]{i, j};
                 }
             }
@@ -19,7 +19,7 @@ public class FindingMethods {
 
     public static List<Moves> getPossibleMoves2(String movesOrder, Moves lastMove, int[][] board) {
         List<Moves> impossibleMoves = new ArrayList<>();
-        int[] pom = FindingMethods.getCoordinates(board, 0);
+        int[] pom = FindingMethods.getCoordinates(board);
         if (lastMove != null) {
             switch (lastMove) {
                 case U:

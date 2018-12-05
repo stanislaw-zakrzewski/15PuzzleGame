@@ -1,6 +1,6 @@
 package sample;
 
-import algorithms.moveTracking.Moves;
+import algorithms.Moves;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 

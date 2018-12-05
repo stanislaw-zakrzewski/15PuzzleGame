@@ -1,8 +1,9 @@
 package gameComponents;
 
+import algorithms.methods.CostCalculation;
 import algorithms.methods.FindingMethods;
 import algorithms.methods.OtherMethods;
-import algorithms.moveTracking.Moves;
+import algorithms.Moves;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +49,18 @@ public class TreeElement {
         }
     }
 
+    public int costHamm() {
+        return CostCalculation.calculateHamm(boardAfter) + gCost();
+    }
+
+    public int costMann() {
+        return CostCalculation.calculateMann(boardAfter) + gCost();
+    }
+
+    public int gCost() {
+        return depth;
+    }
+
     public int[][] getBoardBefore() {
         return boardBefore;
     }
@@ -57,7 +70,7 @@ public class TreeElement {
     }
 
     public void makeMove() {
-        if (!wasMoveMade) {
+        if (!wasMoveMade && move != null) {
             OtherMethods.makeMove(boardAfter, move);
             wasMoveMade = true;
         }

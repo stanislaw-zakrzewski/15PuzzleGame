@@ -36,7 +36,7 @@ public class ReadFile {
                 }
             }
 
-            board = new Board(b, w, k);
+            board = new Board(b);
         } catch (Exception e) {
             e.printStackTrace();
         }

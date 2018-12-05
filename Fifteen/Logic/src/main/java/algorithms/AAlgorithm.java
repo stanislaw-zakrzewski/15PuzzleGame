@@ -1,6 +1,5 @@
 package algorithms;
 
-import algorithms.moveTracking.Moves;
 import fileOperations.ReadFile;
 import fileOperations.SaveToFile;
 import gameComponents.Board;
@@ -13,22 +12,25 @@ public abstract class AAlgorithm {
     List<Moves> movesSoFar;
     String solutionName;
     String solutionInfo;
-    protected String path;
-    protected String fileName;
-    protected long statesVisited;//sa i byly w kolejce
-    protected long statesProcessed;//byly w kolejce
+    private String path;
+    long statesVisited;
+    long statesProcessed;
     int maxDepth;
-    protected float time;
+    private float time;
     boolean isSolved;
+    private String solutionFileName;
+    private String statsFileName;
 
     private StringBuilder fileContents;
 
-    AAlgorithm(String solutionInfo, String inputFilePath) {
+    AAlgorithm(String solutionInfo, String inputFilePath, String solutionFileName, String statsFileName) {
         board = ReadFile.getBoardFromFile(inputFilePath);
         if(board == null) {
             System.out.println("Incorrect input file!");
         }
         this.solutionInfo = solutionInfo;
+        this.solutionFileName = solutionFileName;
+        this.statsFileName = statsFileName;
         movesSoFar = new ArrayList<>();
         path = "Files\\";
     }
@@ -36,7 +38,6 @@ public abstract class AAlgorithm {
     public abstract void solve();
 
     public void saveOutputFile() {
-        String outputFileName = fileName + "_" + solutionName + "_" + solutionInfo + "_sol.txt";
         fileContents = new StringBuilder();
         if(isSolved) {
             fileContents.append(movesSoFar.size()).append(System.getProperty("line.separator"));
@@ -44,11 +45,10 @@ public abstract class AAlgorithm {
         } else {
             fileContents.append("-1");
         }
-        SaveToFile.Save(path, outputFileName, fileContents.toString());
+        SaveToFile.Save(path, solutionFileName, fileContents.toString());
     }
 
     public void saveStatsFile() {
-        String statsFileName = fileName + "_" + solutionName + "_" + solutionInfo + "_stats.txt";
         fileContents = new StringBuilder();
         if(isSolved) {
             fileContents.append(movesSoFar.size()).append(System.getProperty("line.separator"));

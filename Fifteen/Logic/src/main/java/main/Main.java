@@ -8,12 +8,6 @@ import algorithms.DFS;
 public class Main {
     public static void main(String[] args) {
         AAlgorithm algorithm = null;
-        args = new String[5];
-        args[0] = "bfs";
-        args[1] = "rdlu";
-        args[2] = "Files\\sample.txt";
-        args[3] = "solution.txt";
-        args[4] = "stats.txt";
         switch(args[0]) {
             case "bfs":
                 algorithm = new BFS(args[1], args[2], args[3], args[4]);

@@ -11,16 +11,16 @@ public class OtherMethods {
         char[] o = order.toCharArray();
         for(char c : o) {
             switch(c) {
-                case 'u':
+                case 'u': case 'U':
                     moves.add(Moves.U);
                     break;
-                case 'd':
+                case 'd': case 'D':
                     moves.add(Moves.D);
                     break;
-                case 'l':
+                case 'l': case  'L':
                     moves.add(Moves.L);
                     break;
-                case 'r':
+                case 'r': case 'R':
                     moves.add(Moves.R);
                     break;
             }

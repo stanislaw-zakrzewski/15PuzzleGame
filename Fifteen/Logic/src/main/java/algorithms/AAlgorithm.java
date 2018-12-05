@@ -32,7 +32,7 @@ public abstract class AAlgorithm {
         this.solutionFileName = solutionFileName;
         this.statsFileName = statsFileName;
         movesSoFar = new ArrayList<>();
-        path = "Files\\";
+        path = "";
     }
 
     public abstract void solve();

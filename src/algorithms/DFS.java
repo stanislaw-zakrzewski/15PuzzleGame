@@ -4,7 +4,8 @@ import algorithms.methods.CheckingMethods;
 import gameComponents.TreeElement;
 
 public class DFS extends AAlgorithm {
-    private static final int maxinumDepth = 23;
+    private static final int maximumDepth = 23;
+    private static final int maximumStates = 2000000;
 
     public DFS(String solutionInfo, String inputFilePath, String solutionFileName, String statsFileName) {
         super(solutionInfo, inputFilePath, solutionFileName, statsFileName);
@@ -19,6 +20,9 @@ public class DFS extends AAlgorithm {
     }
 
     private void visitTreeElement(TreeElement treeElement) {
+        if (statesProcessed >= maximumStates) {
+            return;
+        }
         if (!treeElement.isChecked()) {
             treeElement.setChecked(true);
         }
@@ -27,13 +31,13 @@ public class DFS extends AAlgorithm {
             movesSoFar = treeElement.getMovesSoFar();
         } else if (!isSolved) {
             treeElement.expand(solutionInfo);
-            if(maxDepth < treeElement.getDepth()+1) {
-                maxDepth = treeElement.getDepth()+1;
+            if (maxDepth < treeElement.getDepth() + 1) {
+                maxDepth = treeElement.getDepth() + 1;
             }
             statesProcessed++;
-            if (treeElement.getDepth() < maxinumDepth) {
+            if (treeElement.getDepth() < maximumDepth) {
                 for (TreeElement child : treeElement.getChildren()) {
-                    statesVisited ++;
+                    statesVisited++;
                     if (!child.isChecked()) {
                         child.makeMove();
                         visitTreeElement(child);

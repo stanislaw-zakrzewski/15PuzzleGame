@@ -56,8 +56,16 @@ public abstract class AAlgorithm {
         fileContents.append(statesVisited).append(System.getProperty("line.separator"));
         fileContents.append(statesProcessed).append(System.getProperty("line.separator"));
         fileContents.append(maxDepth).append(System.getProperty("line.separator"));
-        String[] t = Float.toString(time/1000000).split("\\.");
-        fileContents.append(t[0]).append(".").append(t[1], 0, 3).append(System.getProperty("line.separator"));
+        float t2 = time/1000000;
+        if((t2 - (int)t2) == 0) {
+            fileContents.append(t2).append(System.getProperty("line.separator"));
+        } else {
+            String[] t = Float.toString(time/1000000).split("\\.");
+            if(t[1].length() > 3) {
+                t[1] = t[1].substring(0,3);
+            }
+            fileContents.append(t[0]).append(".").append(t[1]).append(System.getProperty("line.separator"));
+        }
         SaveToFile.Save(path, statsFileName, fileContents.toString());
     }
 

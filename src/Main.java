@@ -1,5 +1,3 @@
-package main;
-
 import algorithms.AAlgorithm;
 import algorithms.ASTR;
 import algorithms.BFS;

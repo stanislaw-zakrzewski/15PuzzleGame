@@ -27,3 +27,5 @@ Fifteen/View/target/maven-archiver/pom.properties
 Fifteen/Logic/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
 Fifteen/Logic/target/maven-archiver/pom.properties
 Fifteen/Logic/target/
+*.iml
+.idea/

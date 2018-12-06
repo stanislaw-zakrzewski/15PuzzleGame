@@ -72,13 +72,13 @@ public abstract class AAlgorithm {
     private char moveToCharacter(Moves move) {
         switch (move) {
             case D:
-                return 'd';
+                return 'D';
             case L:
-                return 'l';
+                return 'L';
             case R:
-                return 'r';
+                return 'R';
             case U:
-                return 'u';
+                return 'U';
         }
         return '?';
     }

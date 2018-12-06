@@ -4,8 +4,8 @@ import algorithms.methods.CheckingMethods;
 import gameComponents.TreeElement;
 
 public class DFS extends AAlgorithm {
-    private static final int maximumDepth = 23;
-    private static final int maximumStates = 2000000;
+    private static final int maximumDepth = 20;
+    private static final int maximumStates = 1000000;
 
     public DFS(String solutionInfo, String inputFilePath, String solutionFileName, String statsFileName) {
         super(solutionInfo, inputFilePath, solutionFileName, statsFileName);

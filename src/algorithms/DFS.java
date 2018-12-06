@@ -5,7 +5,7 @@ import gameComponents.TreeElement;
 
 public class DFS extends AAlgorithm {
     private static final int maximumDepth = 20;
-    private static final int maximumStates = 1000000;
+    private static final int maximumStates = 2000000;
 
     public DFS(String solutionInfo, String inputFilePath, String solutionFileName, String statsFileName) {
         super(solutionInfo, inputFilePath, solutionFileName, statsFileName);
@@ -14,7 +14,7 @@ public class DFS extends AAlgorithm {
 
     @Override
     public void solve() {
-        maxDepth = 23;
+        maxDepth = 0;
         TreeElement root = new TreeElement(board.getBoard(), null, null, 0);
         visitTreeElement(root);
     }

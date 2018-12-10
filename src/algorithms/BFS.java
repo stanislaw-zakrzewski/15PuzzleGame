@@ -3,8 +3,7 @@ package algorithms;
 import algorithms.methods.CheckingMethods;
 import gameComponents.TreeElement;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
 
 public class BFS extends AAlgorithm {
 
@@ -15,36 +14,23 @@ public class BFS extends AAlgorithm {
 
     @Override
     public void solve() {
-        TreeElement root = new TreeElement(board.getBoard(), null, null, 0);
-        List<TreeElement> actualLevel = new ArrayList<>();
-        actualLevel.add(root);
-        if (CheckingMethods.isSolved(root.getBoardAfter())) {
-            isSolved = true;
+        LinkedList<TreeElement> treeElements = new LinkedList<>();
+        treeElements.push(new TreeElement(board.getBoard(), null, null, 0));
+        TreeElement actualElement;
+        while (!isSolved) {
+            actualElement = treeElements.pop();
+            statesVisited++;
+            if (CheckingMethods.isSolved(actualElement.getBoardAfter())) {
+                isSolved = true;
+                movesSoFar = actualElement.getMovesSoFar();
+                maxDepth = actualElement.getDepth();
+                break;
+            }
+            actualElement.expand(solutionInfo);
+            for (TreeElement child : actualElement.getChildren()) {
+                statesProcessed++;
+                treeElements.addLast(child);
+            }
         }
-        root.expand(solutionInfo);
-        statesProcessed += 1;
-        int level = 0;
-
-        if (!isSolved) {
-            do {
-                level++;
-                actualLevel.forEach(a -> a.expand(solutionInfo));
-                List<TreeElement> pom = new ArrayList<>();
-                actualLevel.forEach(a -> pom.addAll(a.getChildren()));
-                actualLevel = pom;
-                statesVisited += actualLevel.size();
-                for (TreeElement treeElement : actualLevel) {
-                    treeElement.makeMove();
-                    if (CheckingMethods.isSolved(treeElement.getBoardAfter())) {
-                        isSolved = true;
-                        movesSoFar = treeElement.getMovesSoFar();
-                        break;
-                    } else {
-                        statesProcessed ++;
-                    }
-                }
-            } while (!isSolved);
-        }
-        maxDepth = level;
     }
 }

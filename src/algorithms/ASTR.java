@@ -3,8 +3,7 @@ package algorithms;
 import algorithms.methods.CheckingMethods;
 import gameComponents.TreeElement;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
 
 public class ASTR extends AAlgorithm {
 
@@ -15,14 +14,14 @@ public class ASTR extends AAlgorithm {
 
     @Override
     public void solve() {
-        List<TreeElement> closedSet = new ArrayList<>();
-        List<TreeElement> openSet = new ArrayList<>();
+        LinkedList<TreeElement> closedSet = new LinkedList<>();
+        LinkedList<TreeElement> openSet = new LinkedList<>();
         openSet.add(new TreeElement(board.getBoard(), null, null, 0));
         TreeElement current;
         boolean wasItHere = false;
 
         while (!openSet.isEmpty()) {
-            current = openSet.get(0);
+            current = openSet.peek();
             for (TreeElement treeElement : openSet) {
                 if (solutionInfo.equals("hamm")) {
                     if (current.costHamm() > treeElement.costHamm()) {
@@ -45,11 +44,10 @@ public class ASTR extends AAlgorithm {
             closedSet.add(current);
 
             current.expand("uldr");
-            if(maxDepth < current.getDepth()+1) {
-                maxDepth = current.getDepth()+1;
+            if (maxDepth < current.getDepth() + 1) {
+                maxDepth = current.getDepth() + 1;
             }
             for (TreeElement child : current.getChildren()) {
-                child.makeMove();
                 for (TreeElement closed : closedSet) {
                     if (closed.getBoardAfter() == child.getBoardAfter()) {
                         wasItHere = true;

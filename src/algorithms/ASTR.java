@@ -5,7 +5,7 @@ import gameComponents.TreeElement;
 
 import java.util.LinkedList;
 
-public class ASTR extends AAlgorithm {
+public class ASTR extends AAlgorithm{
 
     public ASTR(String solutionInfo, String inputFilePath, String solutionFileName, String statsFileName) {
         super(solutionInfo, inputFilePath, solutionFileName, statsFileName);

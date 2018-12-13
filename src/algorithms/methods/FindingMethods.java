@@ -43,7 +43,7 @@ public class FindingMethods {
         }
 
         //Check if R move is possible
-        if (pom[1] == board.length - 1) {
+        if (pom[1] == board[0].length - 1) {
             impossibleMoves.add(Moves.R);
         }
 
@@ -53,7 +53,7 @@ public class FindingMethods {
         }
 
         //Check if D move is possible
-        if (pom[0] == board[0].length - 1) {
+        if (pom[0] == board.length - 1) {
             impossibleMoves.add(Moves.D);
         }
 
